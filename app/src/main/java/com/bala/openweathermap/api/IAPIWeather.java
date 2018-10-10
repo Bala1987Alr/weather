@@ -1,6 +1,7 @@
 package com.bala.openweathermap.api;
 
-import com.practice.openweathermap.api.response.ResWeather;
+
+import com.bala.openweathermap.api.response.ResWeather;
 
 import java.util.HashMap;
 

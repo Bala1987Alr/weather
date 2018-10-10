@@ -3,7 +3,8 @@ package com.bala.openweathermap.ui;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.practice.openweathermap.R;
+import com.bala.openweathermap.R;
+
 
 public class MainActivity extends AppCompatActivity {
 
