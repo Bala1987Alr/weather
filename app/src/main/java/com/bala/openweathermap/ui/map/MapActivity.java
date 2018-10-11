@@ -3,8 +3,11 @@ package com.bala.openweathermap.ui.map;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.bala.openweathermap.BuildConfig;
 import com.bala.openweathermap.R;
+import com.bala.openweathermap.api.APIConstants;
 import com.bala.openweathermap.api.response.ResWeather;
 import com.bala.openweathermap.ui.base.BaseActivity;
 import com.bala.openweathermap.ui.map.contractor.ICMap;
@@ -15,8 +18,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import java.util.HashMap;
 import java.util.Map;
 
-import retrofit2.http.QueryMap;
-
 
 public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICMap.IVMap {
     private GoogleMap googleMap;
@@ -26,10 +27,11 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ipMap = new PMap<>();
+        ipMap.onAttach(this);
         setContentView(R.layout.activity_map);
         Map<String,String> params=new HashMap<>();
         params.put("q","London");
-        params.put("APPID","752cfc87ae78d1fa52bbb476970f027c");
+        params.put(APIConstants.APPID,BuildConfig.APPID);
         ipMap.launchGetWeatherAPI(params);
     }
 
@@ -51,6 +53,6 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
 
     @Override
     public void onWeatherAPIFailed() {
-
+        Toast.makeText(this, getString(R.string.api_weather_failed), Toast.LENGTH_SHORT).show();
     }
 }
