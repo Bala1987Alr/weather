@@ -2,6 +2,7 @@ package com.bala.openweathermap.api;
 
 
 import com.bala.openweathermap.BuildConfig;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -23,8 +24,8 @@ public class APIClient {
 
     private static OkHttpClient getOkhttpClient(){
         OkHttpClient.Builder builder=new OkHttpClient.Builder();
-      /*  if(BuildConfig.DEBUG)
-        builder.addNetworkInterceptor()*/
+        if(BuildConfig.DEBUG)
+        builder.addNetworkInterceptor(new StethoInterceptor());
        return builder.build();
     }
 }

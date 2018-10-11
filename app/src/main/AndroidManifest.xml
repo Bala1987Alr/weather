@@ -16,7 +16,7 @@
             android:value="@string/map_api_key" />
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.map.MapActivity"
             android:label=""
             android:theme="@style/FullscreenTheme" />
 
