@@ -37,8 +37,8 @@ android {
             dimension "default"
             applicationId "com.bala.openweathermap.dev"
             buildConfigField 'String', 'BASE_URL', '"http://api.openweathermap.org/data/2.5/"'
-            buildConfigField 'String', 'MAP_API_KEY', '"AIzaSyBnE1mqqsq6HMV8TWN7zRhBaOQyi - DKnOE"'
-            resValue 'string',"map_api_key","AIzaSyBnE1mqqsq6HMV8TWN7zRhBaOQyi - DKnOE"
+            buildConfigField 'String', 'MAP_API_KEY', '"AIzaSyBnE1mqqsq6HMV8TWN7zRhBaOQyi-DKnOE"'
+            resValue 'string', "map_api_key", "AIzaSyBnE1mqqsq6HMV8TWN7zRhBaOQyi-DKnOE"
             versionCode 1
             versionName "1.0"
         }
@@ -46,8 +46,8 @@ android {
         prod {
             dimension "default"
             applicationId "com.bala.openweathermap"
-            resValue 'string',"map_api_key","AIzaSyBnE1mqqsq6HMV8TWN7zRhBaOQyi - DKnOE"
-            buildConfigField 'String', 'MAP_API_KEY', '"AIzaSyBnE1mqqsq6HMV8TWN7zRhBaOQyi - DKnOE"'
+            resValue 'string', "map_api_key", "AIzaSyBnE1mqqsq6HMV8TWN7zRhBaOQyi-DKnOE"
+            buildConfigField 'String', 'MAP_API_KEY', '"AIzaSyBnE1mqqsq6HMV8TWN7zRhBaOQyi-DKnOE"'
             buildConfigField 'String', 'BASE_URL', '"http://api.openweathermap.org/data/2.5/"'
             versionCode 1
             versionName "1.0"
@@ -58,6 +58,7 @@ android {
 dependencies { configuration ->
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    implementation 'com.android.support:support-v4:28.0.0'
     testImplementation 'junit:junit:4.12'
     retrofit(configuration)
     rxJava(configuration)
