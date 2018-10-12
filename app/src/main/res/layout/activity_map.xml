@@ -23,14 +23,38 @@
             app:cardElevation="@dimen/spacing_small"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvSearchLocation"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="@string/choose_location"
-                android:textColor="#2F4F4F"
-                android:textSize="16sp" />
+                android:layout_height="56dp">
+
+                <EditText
+                    android:id="@+id/etSearchLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_toStartOf="@+id/ivSearch"
+                    android:layout_toLeftOf="@+id/ivSearch"
+                    android:background="@color/white"
+                    android:hint="@string/choose_location"
+                    android:paddingStart="@dimen/spacing_normal"
+                    android:paddingEnd="@dimen/spacing_normal"
+                    android:textColor="#2F4F4F"
+                    android:maxLines="1"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:textColorHint="@color/light_grey"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/ivSearch"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icn_search" />
+
+            </RelativeLayout>
 
         </android.support.v7.widget.CardView>
 
