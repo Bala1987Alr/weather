@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bala.openweathermap.BuildConfig;
@@ -44,15 +47,22 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
                 .findFragmentById(R.id.mapWeather);
         mapFragment.getMapAsync(this);
         binding.ivSearch.setOnClickListener(v -> {
-            if (googleMap != null && !binding.etSearchLocation.getText().toString().trim().isEmpty()) {
+
+        });
+        hideKeyboard();
+
+
+        binding.etSearchLocation.setOnEditorActionListener((v, actionId, event) -> {
+            if  ((actionId == EditorInfo.IME_ACTION_SEARCH)) {
                 Map<String, String> params = new HashMap<>();
                 params.put("q", binding.etSearchLocation.getText().toString());
                 params.put(APIConstants.APPID, BuildConfig.APPID);
                 ipMap.launchGetWeatherAPI(params);
                 hideKeyboard();
+                return true;
             }
+            return false;
         });
-        hideKeyboard();
 
     }
 

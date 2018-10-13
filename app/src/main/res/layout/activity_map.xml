@@ -52,7 +52,7 @@
                     android:layout_alignParentRight="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
-                    android:src="@drawable/icn_search" />
+                    android:src="@drawable/outline_history" />
 
             </RelativeLayout>
 

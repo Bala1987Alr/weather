@@ -2,6 +2,7 @@ package com.bala.openweathermap.api.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 public class ResWeather{
@@ -41,6 +42,8 @@ public class ResWeather{
 
 	@SerializedName("wind")
 	private Wind wind;
+
+	private Date createdOn;
 
 	public void setDt(int dt){
 		this.dt = dt;
@@ -136,5 +139,13 @@ public class ResWeather{
 
 	public Wind getWind(){
 		return wind;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
 	}
 }
