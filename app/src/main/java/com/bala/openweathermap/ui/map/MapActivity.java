@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,10 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
 
     private ResWeather resWeather;
 
+    private boolean isCameraMovedManually = false;
+    private boolean isCameraMovedAutomatically = false;
+    private boolean canZoom = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +51,14 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapWeather);
         mapFragment.getMapAsync(this);
-        binding.ivSearch.setOnClickListener(v -> {
+        binding.ivHistory.setOnClickListener(v -> {
 
         });
         hideKeyboard();
 
 
         binding.etSearchLocation.setOnEditorActionListener((v, actionId, event) -> {
-            if  ((actionId == EditorInfo.IME_ACTION_SEARCH)) {
+            if ((actionId == EditorInfo.IME_ACTION_SEARCH && googleMap != null && !binding.etSearchLocation.getText().toString().isEmpty())) {
                 Map<String, String> params = new HashMap<>();
                 params.put("q", binding.etSearchLocation.getText().toString());
                 params.put(APIConstants.APPID, BuildConfig.APPID);
@@ -64,8 +69,19 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
             return false;
         });
 
-    }
+        binding.fabSearch.setOnClickListener(v -> {
+            if (googleMap != null) {
+                Map<String, String> params = new HashMap<>();
+                LatLng latLng = googleMap.getCameraPosition().target;
+                params.put("lat", latLng.latitude + "");
+                params.put("lon", latLng.longitude + "");
+                params.put(APIConstants.APPID, BuildConfig.APPID);
+                ipMap.launchGetWeatherAPI(params);
+                hideKeyboard();
+            }
+        });
 
+    }
 
 
     public static void startActivity(Context context) {
@@ -79,13 +95,32 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
         LatLng initialLoc = googleMap.getCameraPosition().target;
         LatLng coordinate = new LatLng(initialLoc.latitude, initialLoc.longitude); //Store these lat lng values somewhere. These should be constant.
         CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
-                coordinate, 5);
+                coordinate, 3);
         googleMap.animateCamera(location);
+        isCameraMovedManually = false;
+        isCameraMovedAutomatically = true;
 
+        googleMap.setOnCameraIdleListener(() -> {
+
+            if (isCameraMovedManually && !isCameraMovedAutomatically)
+                binding.fabSearch.show();
+            else
+                binding.fabSearch.hide();
+
+            isCameraMovedManually = false;
+            isCameraMovedAutomatically = false;
+        });
+
+        googleMap.setOnCameraMoveStartedListener(i -> {
+            if (!isCameraMovedAutomatically)
+                isCameraMovedManually = true;
+        });
     }
 
     @Override
     public void onWeatherAPISuccess(ResWeather response) {
+        isCameraMovedManually = false;
+        isCameraMovedAutomatically = true;
         this.resWeather = resWeather;
         googleMap.clear();
         LatLng coordinate = new LatLng(response.getCoord().getLat(), response.getCoord().getLon());
@@ -94,7 +129,8 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
 
 
         CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
-                coordinate, 15);
+                coordinate, canZoom ? 13 : googleMap.getCameraPosition().zoom);
+        canZoom = false;
         googleMap.animateCamera(location);
     }
 
