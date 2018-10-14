@@ -16,6 +16,7 @@ import com.bala.openweathermap.api.APIConstants;
 import com.bala.openweathermap.api.response.ResWeather;
 import com.bala.openweathermap.databinding.ActivityMapBinding;
 import com.bala.openweathermap.ui.base.BaseActivity;
+import com.bala.openweathermap.ui.detail.WeatherDetailDialogFragment;
 import com.bala.openweathermap.ui.map.contractor.ICMap;
 import com.bala.openweathermap.ui.map.presenter.PMap;
 import com.google.android.gms.maps.CameraUpdate;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
@@ -114,6 +116,11 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
         googleMap.setOnCameraMoveStartedListener(i -> {
             if (!isCameraMovedAutomatically)
                 isCameraMovedManually = true;
+        });
+
+        googleMap.setOnMarkerClickListener(marker -> {
+            new WeatherDetailDialogFragment().show(getSupportFragmentManager(), "detail");
+            return true;
         });
     }
 
