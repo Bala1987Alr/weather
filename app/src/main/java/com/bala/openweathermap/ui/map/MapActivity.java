@@ -17,6 +17,7 @@ import com.bala.openweathermap.api.response.ResWeather;
 import com.bala.openweathermap.databinding.ActivityMapBinding;
 import com.bala.openweathermap.ui.base.BaseActivity;
 import com.bala.openweathermap.ui.detail.WeatherDetailDialogFragment;
+import com.bala.openweathermap.ui.history.HistoryActivity;
 import com.bala.openweathermap.ui.map.contractor.ICMap;
 import com.bala.openweathermap.ui.map.presenter.PMap;
 import com.google.android.gms.maps.CameraUpdate;
@@ -54,7 +55,7 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
                 .findFragmentById(R.id.mapWeather);
         mapFragment.getMapAsync(this);
         binding.ivHistory.setOnClickListener(v -> {
-
+            HistoryActivity.open(getBaseActivty());
         });
         hideKeyboard();
 

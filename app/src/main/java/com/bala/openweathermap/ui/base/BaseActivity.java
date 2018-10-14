@@ -2,13 +2,14 @@ package com.bala.openweathermap.ui.base;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 public class BaseActivity extends AppCompatActivity implements IBaseView {
     @Override
     public BaseActivity getBaseActivty() {
-        return null;
+        return this;
     }
 
     @Override
@@ -41,5 +42,12 @@ public class BaseActivity extends AppCompatActivity implements IBaseView {
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
     }
 }

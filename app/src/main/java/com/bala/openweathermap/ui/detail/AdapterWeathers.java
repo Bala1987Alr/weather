@@ -25,6 +25,11 @@ public class AdapterWeathers extends RecyclerView.Adapter<AdapterWeathers.ViewHo
         this.weather = weather;
     }
 
+    public void setWeather(RealmList<WeatherItem> weather) {
+        this.weather = weather;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
