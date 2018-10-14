@@ -134,7 +134,6 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
         googleMap.addMarker(new MarkerOptions().position(coordinate)
                 .title(""));
 
-
         CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
                 coordinate, canZoom ? 13 : googleMap.getCameraPosition().zoom);
         canZoom = false;
