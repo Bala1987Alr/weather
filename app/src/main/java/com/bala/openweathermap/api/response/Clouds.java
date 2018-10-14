@@ -2,7 +2,9 @@ package com.bala.openweathermap.api.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Clouds{
+import io.realm.RealmObject;
+
+public class Clouds extends RealmObject {
 
 	@SerializedName("all")
 	private int all;

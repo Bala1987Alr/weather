@@ -2,7 +2,9 @@ package com.bala.openweathermap.api.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class WeatherItem{
+import io.realm.RealmObject;
+
+public class WeatherItem extends RealmObject {
 
 	@SerializedName("icon")
 	private String icon;

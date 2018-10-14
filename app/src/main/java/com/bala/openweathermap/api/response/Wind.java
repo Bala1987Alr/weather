@@ -2,7 +2,9 @@ package com.bala.openweathermap.api.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Wind{
+import io.realm.RealmObject;
+
+public class Wind extends RealmObject {
 
 	@SerializedName("deg")
 	private int deg;

@@ -2,7 +2,9 @@ package com.bala.openweathermap.api.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Coord{
+import io.realm.RealmObject;
+
+public class Coord extends RealmObject {
 
 	@SerializedName("lon")
 	private double lon;
