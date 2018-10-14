@@ -3,9 +3,10 @@ package com.bala.openweathermap.api.response;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
-import java.util.List;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class ResWeather extends RealmObject {
 
@@ -19,7 +20,7 @@ public class ResWeather extends RealmObject {
 	private int visibility;
 
 	@SerializedName("weather")
-	private List<WeatherItem> weather;
+	private RealmList<WeatherItem> weather;
 
 	@SerializedName("name")
 	private String name;
@@ -33,8 +34,9 @@ public class ResWeather extends RealmObject {
 	@SerializedName("clouds")
 	private Clouds clouds;
 
+	@PrimaryKey
 	@SerializedName("id")
-	private int id;
+	private long id;
 
 	@SerializedName("sys")
 	private Sys sys;
@@ -71,11 +73,11 @@ public class ResWeather extends RealmObject {
 		return visibility;
 	}
 
-	public void setWeather(List<WeatherItem> weather){
+	public void setWeather(RealmList<WeatherItem> weather){
 		this.weather = weather;
 	}
 
-	public List<WeatherItem> getWeather(){
+	public RealmList<WeatherItem> getWeather(){
 		return weather;
 	}
 
@@ -111,11 +113,11 @@ public class ResWeather extends RealmObject {
 		return clouds;
 	}
 
-	public void setId(int id){
+	public void setId(long id){
 		this.id = id;
 	}
 
-	public int getId(){
+	public long getId(){
 		return id;
 	}
 

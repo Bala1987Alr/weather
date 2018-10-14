@@ -5,11 +5,13 @@ import com.bala.openweathermap.api.IAPIWeather;
 import com.bala.openweathermap.ui.base.BasePresenter;
 import com.bala.openweathermap.ui.map.contractor.ICMap;
 
+import java.util.Date;
 import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 
 public class PMap<V extends ICMap.IVMap> extends BasePresenter<V> implements ICMap.IPMap<V> {
 
@@ -31,9 +33,20 @@ public class PMap<V extends ICMap.IVMap> extends BasePresenter<V> implements ICM
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 response -> {
+                                    try {
+                                        Realm realm = Realm.getDefaultInstance();
+                                        response.setCreatedOn(new Date());
+                                        realm.beginTransaction();
+                                        realm.copyToRealmOrUpdate(response);
+                                        realm.commitTransaction();
+                                        realm.close();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
                                     if (getMvpView() != null)
                                         getMvpView().onWeatherAPISuccess(response);
-                                    System.out.println(" response ______"+response.toString());
+                                    System.out.println(" response ______" + response.toString());
                                 },
                                 error -> {
                                     if (getMvpView() != null) getMvpView().onWeatherAPIFailed();

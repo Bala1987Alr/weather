@@ -119,7 +119,7 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
         });
 
         googleMap.setOnMarkerClickListener(marker -> {
-            new WeatherDetailDialogFragment().show(getSupportFragmentManager(), "detail");
+            WeatherDetailDialogFragment.newInstance(resWeather.getId()).show(getSupportFragmentManager(), "detail");
             return true;
         });
     }
@@ -128,7 +128,7 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, ICM
     public void onWeatherAPISuccess(ResWeather response) {
         isCameraMovedManually = false;
         isCameraMovedAutomatically = true;
-        this.resWeather = resWeather;
+        this.resWeather = response;
         googleMap.clear();
         LatLng coordinate = new LatLng(response.getCoord().getLat(), response.getCoord().getLon());
         googleMap.addMarker(new MarkerOptions().position(coordinate)
